@@ -34,7 +34,6 @@ context.write(users, NullWritable.get());
 
 public static class Reduce extends Reducer<Text, NullWritable, Text, NullWritable> {
 private final static IntWritable userID = new IntWritable();
-private int index = 1;
 public void reduce(Text key, NullWritable values, Context context) throws IOException, InterruptedException {
 context.write(key, NullWritable.get());
 }
