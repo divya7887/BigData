@@ -1,5 +1,4 @@
 Implement several map reduce design patterns to derive some statistics from IMDB movie data using Hadoop framework. 
-Coursework CS 6301
 
 
 Dataset: License included
