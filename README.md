@@ -7,7 +7,7 @@ users.dat UserID::Gender::Age::Occupation::Zip-code
 movies.dat MovieID::Title::Genres
 
 
-MAP REDUCE
+Map Reduce
 
 Question1:
 list all male user id whose age is less or equal to 7 .
