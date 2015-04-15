@@ -99,30 +99,45 @@ Q10: Cassandra CLI
 Requirements:
 
 Using Cassandra CLI, write commands to do the following:
+
 1- Create a COLUMN FAMILY for this dataset.
+
 2- Insert the following to the column family created in step 1. Use UserID as the key.
+
 i. "13:F:51:1:93334"
+
 ii. "1471:F:31:17:11116"
+
 iii. "1496:F:31:17:94118" with time to live (ttl) clause after 300 seconds
 
 3- Show the following:
+
 i. Get the Gender and Occupation for user with id 13 ?
+
 ii. Retrieve all rows and columns.
+
 iii. Delete column Gender for the user id 1471.
+
 iv. Drop the column family.
 
+
 4. Use describe keyspace command with your netid and show content.
-5. 
+
 
 Q11: Cassandra CQL3
 {cs6360:~} /usr/local/apache-cassandra2.0.5/bin/cqlsh –3 csac0
 Requirements:
 Using Cassandra CQL3, write commands to do the following:
 1- Create a table for this dataset. Use (UserID) as the Primary Key.
+
 2- Load all records in the dataset to this table.
+
 3- Insert record “6041:M:32:6:11120" to the table.
+
 4- Select the tuple which has user id 6020
+
 5- Delete all rows in the table.
+
 6- Drop the table.
 
 
