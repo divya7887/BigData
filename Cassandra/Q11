@@ -1,0 +1,26 @@
+/usr/local/apache-cassandra-2.0.5/bin/cqlsh csac0 9160
+DROP KEYSPACE dxs133530;
+CREATE KEYSPACE dxs133530 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+USE dxs133530;
+
+
+1.
+
+CREATE TABLE user (UserID int PRIMARY KEY,Gender varchar,Age varchar,Occupation varchar,Zipcode varchar);
+
+
+2.
+
+COPY user FROM 'hivepartition/users.dat'WITH DELIMITER=':';
+
+
+3. INSERT INTO user(UserID,Gender,Age,Occupation,Zipcode) VALUES(6041,'M','32','6','11120');
+
+
+4. SELECT * FROM user WHERE userID = 6020;
+
+
+5. truncate user;
+
+
+6. drop TABLE user;
