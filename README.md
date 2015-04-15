@@ -43,11 +43,17 @@ Q3:Repeat Question 2 (implement join) with co-group commands. Print first 6 rows
 
 Q4:Write a UDF(User Define Function) FORMAT_GENRE in Pig which basically formats the genre in movie in the following:
 Before formatting: Children's
+
 After formatting: 1) Children's <NetId>
+
 Before formatting: Animation|Children's
+
 After formatting: 1) Children's & 2) Animation <NetId>
+
 Before formatting: Children's|Adventure|Animation
+
 After formatting: 1) Children's, 2) Adventure & 3) Animation <NetId>
+
 Using Pig Latin script, use the FORMAT_GENRE function on movies dataset and print the movie name with genres
 
 
@@ -71,10 +77,15 @@ Using Hive multi-table insert, insert values from the table you created in Q7 to
 
 Q9:Write a UDF(User Define Function) FORMAT_GENRE in Hive which basically formats the genre in movies:
 Before formatting: Children's
+
 After formatting: 1) Children's <NetId> :hive
+
 Before formatting: Animation|Children's
+
 After formatting: 1) Children's & 2) Animation <NetId> :hive
+
 Before formatting: Children's|Adventure|Animation
+
 After formatting: 1) Children's, 2) Adventure & 3) Animation <NetId> :hive
 
 
