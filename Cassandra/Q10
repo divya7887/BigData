@@ -1,0 +1,54 @@
+/usr/local/apache-cassandra-2.0.5/bin/cassandra-cli --host csac0
+1.
+DROP KEYSPACE dxs133530;
+CREATE KEYSPACE dxs133530 with placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy' and strategy_options = {replication_factor:1};
+USE dxs133530;
+CREATE COLUMN FAMILY users WITH comparator = UTF8Type AND key_validation_class=UTF8Type AND column_metadata = [
+{column_name: UserID, validation_class: UTF8Type}
+{column_name: Gender, validation_class: UTF8Type}
+{column_name: Age, validation_class: UTF8Type}
+{column_name: Occupation, validation_class: UTF8Type}
+{column_name: Zip-code, validation_class: UTF8Type}
+];
+
+2.
+
+SET users['13']['UserID']='13';
+SET users['13']['Gender']='F';
+SET users['13']['Age']='51';
+SET users['13']['Occupation']='1';
+SET users['13']['Zip-code']='93334';
+SET users['1471']['UserID']='1471';
+SET users['1471']['Gender']='F';
+SET users['1471']['Age']='31';
+SET users['1471']['Occupation']='17';
+SET users['1471']['Zip-code']='11116';
+SET users['1496']['UserID']='1496';
+SET users['1496']['Gender']='F';
+SET users['1496']['Age']='31';
+SET users['1496']['Occupation']='17';
+SET users['1496']['Zip-code']='94118' WITH ttl=300;
+3.
+GET users['13']['Gender'];
+GET users['13']['Occupation'];
+LIST users;
+DEL users ['1471']['Gender'];
+DROP COLUMN FAMILY users;
+
+4.
+DESCRIBE dxs133530;
+
+
+[default@dxs133530] DESCRIBE dxs133530;
+
+WARNING: CQL3 tables are intentionally omitted from 'describe' output.
+See https://issues.apache.org/jira/browse/CASSANDRA-4377 for details.
+
+Keyspace: dxs133530:
+  Replication Strategy: org.apache.cassandra.locator.SimpleStrategy
+  Durable Writes: true
+    Options: [replication_factor:1]
+  Column Families:
+
+
+
