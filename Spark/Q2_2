@@ -1,0 +1,54 @@
+
+//movies rated by user 20 with rating 3
+val userID = "20"
+val ratingsFile = sc.textFile("/dxs133530/ratings.dat")
+val ratingsArray = ratingsFile.toArray
+val myRatedList = new scala.collection.mutable.MutableList[String]
+
+	for(i <- 0 until ratingsArray.length){
+		val eachLine = ratingsArray(i).split("::")
+		if(eachLine(0) == userID && eachLine(2) == "3") {
+		myRatedList += eachLine(1)
+		}
+	}
+
+// From item similarity matrix get the recmmendations from other users and storing in item map
+val createdMatrix = sc.textFile("/dxs133530/matrix")
+val createdArray = createdMatrix.toArray
+val similarityMap = new scala.collection.mutable.HashMap[String,List[String]].withDefaultValue(Nil)
+
+	for(i <- 0 until createdArray.length){
+		val simLine = createdArray(i).split("\\s+")
+		val simKey = simLine(0)
+		if(simLine.length > 1){
+			val splitValue = simLine(1).split(",")
+			for( j <- 0 until splitValue.length){
+				val movieSplit = splitValue(j).split(":")
+				val movieID = movieSplit(0)
+				similarityMap(simKey) ::= movieID
+			}
+		}
+	}
+
+// printing recommendations with id and movie names
+val movieFile = sc.textFile("/dxs133530/movies.dat")
+val movieMap = new scala.collection.mutable.HashMap[String,String]
+val movieArray = movieFile.toArray
+	
+for(i <- 0 until movieArray.length){
+	val eachMovie = movieArray(i).split("::")
+	movieMap(eachMovie(0)) = eachMovie(1)
+}
+
+
+for(i <- 0 until myRatedList.length){
+	val movieInmyRatedList = myRatedList(i)
+	if(similarityMap.contains(movieInmyRatedList)){
+	println("")
+	print(movieInmyRatedList +":" +movieMap(movieInmyRatedList)+"        ")
+		for(i <- 0 until similarityMap(movieInmyRatedList).length){
+			print((similarityMap(movieInmyRatedList)(i))+":"+ movieMap(similarityMap(movieInmyRatedList)(i)) + " " + ",")
+		}
+	println("")
+	}
+}
