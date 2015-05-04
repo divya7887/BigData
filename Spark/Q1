@@ -1,0 +1,64 @@
+import scala.io.Source
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext._
+
+object kmeansAlgo {
+  def main(args: Array[String]) {
+   val ipFile = "src/data/Q1_testkmean.txt"
+ 
+ 
+ val source = new SparkContext("local", "kmeansAlgo", "/path/to/spark-0.9.1-incubating",
+ List("target/scala-2.10/simple-project_2.10-1.0.jar"))
+ val dataValues = source.textFile(ipFile, 2).cache()
+ val pts = dataValues.filter(line => !line.matches(" ")).map(
+ line => {
+val pointSplit = line.split(" ").map(_.toDouble)
+new DataPts(pointSplit(0), pointSplit(1))
+}).toArray
+	val num_clusters = 3
+    System.err.println("Total no of points : " + pts.length)
+    var centroids = Array.fill(num_clusters.toInt) { DataPts.random }
+	 var iter =1
+while(iter <=10)
+{
+centroids = kmeansimpl(pts, centroids, iter)
+iter = iter + 1
+	}
+System.err.println("printing final centroids: ")
+println(centroids.map(centroid => "%3f\t%3f\n".format(centroid.first,centroid.second)).mkString)
+}
+
+def kmeansimpl(pts: Seq[DataPts], centroids: Seq[DataPts], iter: Int): Array[DataPts] = {
+    val findClusters = pts.groupBy(first => findNearCentroid(centroids, first))
+	if( iter == 10)
+	{
+	val clusterpoints = findClusters.toMap
+	println("Printing points and its clusters")
+clusterpoints.keys.zipWithIndex.foreach{ case( a,b) => println("Points : " + clusterpoints(a).mkString(", clusternum :" +b +"\n"+ "Points = ")+",  clusternum :" +b +"\n") }
+
+} 
+    val newCentroids = centroids.map(oldCentroid => {
+      findClusters.get(oldCentroid) match {
+        case Some(pointsInCluster) => pointsInCluster.reduceLeft(_ + _) / pointsInCluster.length
+        case None => oldCentroid
+      }})
+	  
+	  val mdtn = (centroids zip newCentroids).map({ case (high, low) => high dist low })
+      return newCentroids.toArray
+  }
+  def findNearCentroid(centroids: Seq[DataPts], DataPts: DataPts) = {
+  centroids.reduceLeft((m, n) => if ((DataPts dist m) < (DataPts dist n)) m else n)
+}
+}
+@serializable case class DataPts(val first: Double, val second: Double) {
+  def + (that: DataPts) = new DataPts(this.first + that.first, this.second + that.second)
+  def - (that: DataPts) = this + (-that)
+  def unary_- () = new DataPts(-this.first, -this.second)
+  def / (d: Double) = new DataPts(this.first / d, this.second / d)
+  def sse = math.sqrt(first * first + second * second)
+  def dist(that: DataPts) = (that - this).sse
+  override def toString = format("(%.2f,%.2f)", first, second)
+}
+object DataPts {
+  def random() = {new DataPts(math.random ,math.random )}
+}
