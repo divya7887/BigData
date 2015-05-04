@@ -1,0 +1,9 @@
+//for creating the item similarity matrix
+mahout spark-itemsimilarity --input /ratings.dat --output /output7878 --filter1 3 --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2  --inDelim "::" --elementDelim "," 
+
+
+
+
+
+
+
