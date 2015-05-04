@@ -154,12 +154,15 @@ The number of cluster K should be 3.
 The Scala code will be producing output in the following ways:
 
 •	Print each point and the corresponding cluster it belongs to.
+
 •	Print the final centroids
 
 Q2. “A user rates some movies with rating 3. Our task is to recommend some movies to him that has the similar ratings from other users.” 
 
 Q2_1 
+
 construct the item-similarity matrix of each movie having rating 3 (use ratings.dat). In the matrix, the first integer is the movie id (The movie for which we recommend), then the rest of the text contains the list of the recommended movies id with their value (movie id: value)
 
 Q2_2
-Now find all the movies that he rates with rating 3. 2.	Load/read the above file (item-similarity file) and find the movies that match with the user’s rated movies with the key of the item-similarity file and replace the movie Id with movieid:movie_name.
+
+Now find all the movies that he rates with rating 3.	Load/read the above file (item-similarity file) and find the movies that match with the user’s rated movies with the key of the item-similarity file and replace the movie Id with movieid:movie_name.
